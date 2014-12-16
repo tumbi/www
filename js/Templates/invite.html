@@ -1,0 +1,54 @@
+<ion-view title="invite"> <ion-pane>
+<div class="search-box fixed-top">
+ <section>
+  <form role="form" >
+   <!-- Text input Search-->
+
+   <div class="form-group has-feedback search-top">
+    <label for="textinput"></label> 
+                <input type="text" class="form-control search" id="search" placeholder="Search by name" ng-model="searchKey" data-ng-change="searchKeyChanged(searchKey)"> 
+                <span class="glyphicon glyphicon-search margin-right form-control-feedback"></span>
+                <!-- <a href="#/event/new"><span class="glyphicon glyphicon-plus plus form-control-feedback"></span></a> -->
+   </div>
+       </form>
+  <br />
+<a id="invite" name="Invite" class="btn btn-primary btn-lg btn-block2 btn-skyblue" data-ng-click="sendInvites(contacts)" 
+	data-ng-disabled="!isAnySelected">Invite</a>
+ </section>
+</div>
+<div role="main" class="margin-top130">
+	<section>
+		<div id='contacts'>
+			<div class="table-responsive">
+				<table class="table">
+
+					<tbody>
+						<tr ng-repeat="contact in contacts | filter : searchKey | orderBy: 'displayName' | limitTo: limit" 
+						data-ng-show="contact.phoneNumbers.length > 0 || contact.emails.length > 0">
+							<td class="contact-text-left">
+								<div>
+									{{contact.displayName}}
+									<div class="inner padded">
+										<div class="phone" ng-repeat="phone in contact.phoneNumbers">
+											<input type="checkbox" id="{{phone.value}}" data-ng-model="phone.isSelected" data-ng-change="checkboxClicked()">
+											<label for="{{phone.value}}">{{phone.value}}</label>
+										</div>
+										<div class="email" ng-repeat="email in contact.emails">
+											<input type="checkbox" id="{{email.value}}" data-ng-model="email.isSelected" data-ng-change="checkboxClicked()">
+											<label for="{{email.value}}">{{email.value}}</label>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<br /><br />
+				<a id="invite" name="Invite"
+			class="btn btn-primary btn-lg btn-block2 btn-skyblue" data-ng-show="(contacts | filter : searchKey).length > limit"
+			data-ng-click="loadMore()">Load more ...</a>
+			</div>
+		</div>
+	</section>
+</div>
+</ion-pane> </ion-view>

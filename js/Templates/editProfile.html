@@ -1,0 +1,70 @@
+<ion-view> <ion-pane>
+<div role="main" class="container bg margin-top3 theme-showcase">
+	<section>
+		<div class="margin-top">
+             <img id="profilePic" class="img-responsive dashboard-top-bg" ng-src="{{imageSrc}}" alt=""/>  
+         </div>
+
+		<form role="form" class="margin-top" name="editProfile">
+			<!-- Text input-->
+			<div class="form-group has-feedback">
+				<input type="text" class="form-control" id="name" placeholder="Name"
+					required="" ng-model="user.first_name" name="name" ng-pattern="/^[0-9A-Za-z_\s]*$/"> <span
+					class="glyphicon form-control-feedback"
+					data-ng-class="{'input-invalid': editProfile.name.$invalid, 'input-valid': !editProfile.name.$invalid}"></span>
+			</div>
+
+			<div class="form-group has-feedback">
+
+				<input type="email" class="form-control" id="email"
+					placeholder="Email" required="" ng-model="user.username"
+					name="email"> <span class="glyphicon form-control-feedback"
+					data-ng-class="{'input-invalid': editProfile.email.$invalid, 'input-valid': !editProfile.email.$invalid}"></span>
+			</div>
+
+			<div class="form-group has-feedback">
+
+				<input type="number" class="form-control" id="phone"
+					placeholder="Phone" required="" ng-model="user.phone" name="phone">
+				<span class="glyphicon form-control-feedback"
+					data-ng-class="{'input-invalid': editProfile.phone.$invalid, 'input-valid': !editProfile.phone.$invalid}"></span>
+			</div>
+
+			<!-- Password input-->
+			<div class="form-group has-feedback">
+
+				<input type="password" class="form-control" id="password"
+					placeholder="Password" required="" ng-model="user.password"
+					name="password"> <span
+					class="glyphicon form-control-feedback"
+					data-ng-class="{'input-invalid': editProfile.password.$invalid, 'input-valid': !editProfile.password.$invalid}"></span>
+			</div>
+			<!-- Password input-->
+			<div class="form-group has-feedback">
+
+				<input type="password" class="form-control" id="confirm-password"
+					placeholder="Confirm Password" required=""
+					ng-model="user.confirm_password" required match-field="password"
+					name="confirm"> <span
+					class="glyphicon form-control-feedback"
+					data-ng-class="{'input-invalid': editProfile.confirm.$invalid, 'input-valid': !editProfile.confirm.$invalid}"></span>
+			</div>
+
+
+			<!-- Button login -->
+<!-- 			<a href="#" id="upload-photo" -->
+<!-- 				class="btn btn-primary btn-lg btn-block btn-skylight margin-top">Upload -->
+<!-- 				New Photo</a> -->
+
+			<!-- Button facebook -->
+
+			<button type="submit"
+				class="btn btn-primary btn-lg btn-block margin-top  btn-skyblue" ng-click="saveProfile(user)" data-ng-disabled="editProfile.$invalid">Update
+				Profile</button>
+
+
+		</form>
+
+	</section>
+</div>
+</ion-pane></ion-view>

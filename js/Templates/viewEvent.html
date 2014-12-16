@@ -1,0 +1,160 @@
+<ion-view title="{{navTitle}}"> <ion-pane> <!-- Nav tabs -->
+<ul class="nav nav-tabs fixed-top" id="tab">
+	<li data-ng-class="{'active' : tab == 'details'}"><a
+		data-ng-click="loadEventDetails()">Details</a></li>
+	<li data-ng-class="{'active' : tab == 'attendees'}"><a
+		data-ng-click="loadAttendees()">Attendees</a></li>
+	<li data-ng-class="{'active' : tab == 'location'}"><a
+		data-ng-click="loadGoogleMap()">Location</a></li>
+	<li data-ng-class="{'active' : tab == 'notes'}"><a
+		data-ng-click="loadNotesTab()">Notes</a></li>
+</ul>
+<div class="bg margin-top80">
+	<!-- Tab panes -->
+	<div class="tab-content">
+
+		<div role="main" class="container theme-showcase" id="viewEvent">
+			<div class="tab-pane" data-ng-show="tab == 'details'">
+				<section class="details-body">
+					<div class="event-detail">
+						<h4 class="margin-top" data-ng-bind="event.title"></h4>
+						<p class="margin-top" data-ng-bind="event.notes"></p>
+						<img class="img-responsive" data-ng-hide="!event.image_url || event.image_url == 'undefined'"
+							ng-src="{{eventImageSource+event.server_id}}" />
+					</div>
+					<div class="event-box">
+						<hr />
+						<h3>Event Time</h3>
+						<p class="time">{{ event.start | date : 'short'}}</p>
+					</div>
+				</section>
+			</div>
+			<div class="tab-pane" data-ng-show="tab == 'attendees'">
+				<div class="search-box">
+					<section>
+						<form role="form">
+							<div class="form-group has-feedback bordered">
+								<input type="text" class="form-control search" id="search"
+									placeholder="Search by name" data-ng-model="attendeeSearch">
+								<span class="glyphicon glyphicon-search form-control-feedback"></span>
+							</div>
+						</form>
+					</section>
+				</div>
+				<div role="main" class="header-events bg bordered">
+					<section>
+						<div id='attendeeContacts'>
+							<div class="table-responsive">
+								<table class="table">
+									<tbody>
+										<tr
+											data-ng-repeat="attendee in event.attendees | filter : {'first_name': attendeeSearch}"
+											data-ng-click="attendeeClicked(attendee)">
+											<td class="attendee-name contact-text-left" width="40">{{attendee.first_name}}</td>
+											<td class="floated-right"
+												data-ng-class="{'contact-text-right-registered': attendee.status == 1, 'background': attendee.status == 0, 'blue': attendee.status == 2, 'red': attendee.status == 3}">
+												{{statusMessages[attendee.status]}} <span class="glyphicon"
+												data-ng-class="{'glyphicon-time': attendee.status == 0, 'glyphicon-thumbs-up': attendee.status == 1, 'glyphicon-thumbs-down': attendee.status == 3, 'glyphicon-question-sign': attendee.status == 2}"></span>
+											</td>
+										</tr>
+										<tr
+											data-ng-repeat="group in event.groups | filter : {'group_name': attendeeSearch}">
+											<td class="contact-text-left">{{group.group_name}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="tab-pane" data-ng-show="tab == 'location'">
+				<section>
+					<div class="form-group has-feedback">
+						<h4 class="margin-top" data-ng-bind="event.location_title"></h4>
+					</div>
+					<div class="margin-top2" id="map" style="height: 350px;"></div>
+				</section>
+			</div>
+			<div class="tab-pane" data-ng-show="tab == 'notes'">
+				<div class="note">
+					<div class="profile-row margin-top"
+						data-ng-repeat="comment in event.comments">
+						<div class="profile-sm-pic" ng-init="loadUserImage(comment.commentedByClientId)">
+							<div class="profile-sm-top-bg">
+								<img class="img-responsive"
+									ng-src="{{userImages[comment.commentedByClientId]}}"
+									alt="" />
+							</div>
+						</div>
+						<div class="profile-sm-text">
+							<h4>{{comment.commentedByName}}</h4>
+							<p>{{comment.text}}</p>
+						</div>
+					</div>
+					<div class="clear"></div>
+					<div class="comment">
+						<section>
+							<form name="commentForm">
+								<div class="event-box">
+									<div class="form-group">
+										<textarea class="form-control" rows="3" name="commentText"
+											placeholder="Add New Comment" required=""
+											data-ng-model="event.commentText"></textarea>
+									</div>
+									<div class="margin-top3 margin-bottom">
+										<button type="button" id="btn-skylight"
+											name="button sky light"
+											class="btn btn-primary btn-lg btn-block btn-skylight"
+											data-ng-click="postComment(event.commentText)"
+											data-ng-disabled="commentForm.$invalid">Add Comment</button>
+									</div>
+								</div>
+							</form>
+						</section>
+					</div>
+				</div>
+			</div>
+			<div class="bottom-box"
+				data-ng-show="event.status == eventStatus.unknown">
+				<hr />
+				<h2>Are you Attending event?</h2>
+
+				<div class="btn-group btn-bottom">
+					<button type="button" class="btn btn-default btn-left"
+						data-ng-click="postEventStatus(eventStatus.mayBe)">May be</button>
+					<button type="button" class="btn btn-default btn-middle"
+						data-ng-click="postEventStatus(eventStatus.attending)">Yes</button>
+					<button type="button" class="btn btn-default btn-right"
+						data-ng-click="postEventStatus(eventStatus.notAttending)">No</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Dialog model for attendee -->
+<div modal="showModal" id="attendeeModal" tabindex="-1" role="modal"
+	aria-labelledby="attendeeModalLabel" aria-hidden="true"
+	close="cancel()">
+	<div class="modal-dialog">
+		<div class="modal-content modal-attendee">
+			<div class="modal-header modal-head-reminder-bg">
+				<button type="button" class="close close-bg" data-dismiss="modal"
+					data-ng-click="showModal = false">
+					<span aria-hidden="true">&times;</span> <span class="sr-only">Close</span>
+				</button>
+				<div class="profile-modal-top-bg">
+					<img class="img-responsive"
+						ng-src="{{attendeeImageUrl}}"
+						alt="image" />
+				</div>
+			</div>
+			<div class="modal-body modal-body-attendee">
+				<p class="attendeelabel">{{selectedAttendee.first_name}}</p>
+				<p class="attendeelabel" data-ng-show="selectedAttendee.username">{{selectedAttendee.username}}</p>
+			</div>
+		</div>
+	</div>
+</div>
+</ion-pane> </ion-view>

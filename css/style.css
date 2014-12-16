@@ -1,0 +1,175 @@
+/* Empty. Add your own CSS if you like */
+
+/* 	.circular { */
+/* 	width: 300px; */
+/* 	height: 300px; */
+/* 	border-radius: 150px; */
+/* 	-webkit-border-radius: 150px; */
+/* 	-moz-border-radius: 150px; */
+/* 	background: url(../img/ionic.png) no-repeat; */
+/* 	} */
+/* /**/ 
+/* .circular img { */
+/* 	opacity: 0; */
+/* 	filter: alpha(opacity=0); */
+/* 	} */
+	
+/* .inner.padded div { */
+/* 	padding-left: 20px; */
+/* 	border-top: solid #dee 1px; */
+/* } */
+
+div.phone, div.email{
+background-repeat: no-repeat;
+background-position: right center;
+background-origin: content-box;
+padding-right: 5px;
+}
+div.phone{
+background-image: url('../images/phone.png');
+}
+div.email{
+background-image: url('../images/email.png');
+}
+div.loading-widget{			
+position: absolute;
+width: 100%;
+height: 100%;
+z-index: 1000;
+background-color: rgba(255, 255, 255, 0.6);
+}
+img.img-center{	
+display: inline-block;
+position: absolute;
+top: 46%;
+left: 46%;
+}
+span.glyphicon.form-control-feedback.input-valid {
+background-image: url('../images/tick-green.png');
+background-repeat: no-repeat;
+}
+span.glyphicon.form-control-feedback.input-invalid {
+background-image: url('../images/cross-red.png');
+background-repeat: no-repeat;
+}
+span.glyphicon.form-control-feedback.input-date {
+background-image: url('../images/btn-calendar.jpg');
+background-repeat: no-repeat;
+top: 5px;
+right: 8px;
+}
+div.fc-view > div > div:last-child {
+	height: 390px !important;
+}
+
+table.fc-border-separate{
+	height:100%;
+}
+.bordered{
+	border: 1px solid #bbbbbb;
+}
+.floated-right{
+	float:right;
+}
+.attendee-name{
+	width:42%;
+}
+
+.fc-header-left span{
+	line-height: 2em !important;
+}
+.fc-header-left span.fc-button-prev, .fc-header-left span.fc-button-next{
+	width:22% !important;
+}
+
+.fc-header-left span:first-child{
+	margin-left:15px;
+}
+
+.fc-header-left .ui-icon-circle-triangle-w{
+	padding: 0 .6em;	
+}
+.fc-header-left .ui-icon-circle-triangle-w{
+	padding: 0 .6em;
+}
+.fc-header-right{
+	line-height: 65px !important;
+}
+
+.fc-header-title h2{
+font-size: 14px;
+margin: 0;
+line-height: 26px;
+}
+
+.fc-header-title{
+	width: 42%;
+}
+/* .has-feedback.no-label .form-control-feedback{ */
+/* 	top: 15px; */
+/* } */
+
+/* .form-control .fileinput-filename{ */
+/* 	width: 80px; */
+/* 	text-overflow: ellipsis; */
+/* } */
+
+/* #map{ */
+/* 	width: 100%; */
+/* 	height: 400px; */
+/* } */
+
+/* #viewEvent{ */
+/* 	height: 570px; */
+/* } */
+/* .edit-profile{ */
+/*     line-height:180px; */
+/*     text-align:center; */
+/* } */
+/* .edit-profile img{ */
+/* 	vertical-align: middle; */
+/* 	width:100%; */
+/* } */
+/* .fc-header-title{ */
+/* 	font-size: 10px; */
+/* } */
+/* nav { */
+/* 	position: fixed; */
+/* 	width: 100%; */
+/* 	z-index: 100000; */
+/* } */
+/* .nav-margin{ */
+/* 	height: 40px; */
+/* } */
+/* .event-search{ */
+/* 	width:82%; */
+/* 	display: inline-block; */
+/* } */
+/* a.add{ */
+/* 	background-image: url('../images/plus.png'); */
+/* 	padding: 12px 25px; */
+/* 	background-repeat: no-repeat; */
+/* 	background-position: center; */
+/* 	vertical-align: -4px; */
+/* 	left: -25px; */
+/* 	border-left: 2px solid #3366cc; */
+/* } */
+/* div.search-box.event{ */
+/* 	border-bottom: 2px solid #3366cc; */
+/* } */
+/* .event-search .form-control{ */
+/* 	background-color: inherit !important; */
+/* } */
+/* .glyphicon-time{ */
+/* 	color: #428bca; */
+/* } */
+/* .navBar-right.glyphicon.glyphicon-edit{ */
+/* 	color: white; */
+/* 	padding: 12px; */
+/* } */
+/* div.scroll-bar.scroll-bar-v { */
+/* display: none; */
+/* } */
+/* ion-nav-view, ion-view, ion-content{ */
+/* 	display:block; */
+/* } */

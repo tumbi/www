@@ -1,0 +1,48 @@
+<ion-view title="{{navTitle}}"> <ion-pane>
+<div class="bg header-top2"> 
+	<div role="main" class="container margin-top background ">
+		<section>
+
+			<div class="form-group has-success has-feedback">
+
+				<input type="text" class="form-control" id="name"
+					placeholder="Group Title" required="" data-ng-model="group.title">
+			</div>
+			<div class="checkbox margin-top3 margin-checkbox">
+				<label> <input type="checkbox" data-ng-model="selectAll"
+					data-ng-change="selectAllFriends(friends, searchKey, selectAll)">
+					Select All
+				</label>
+			</div>
+			<div class="form-group has-success has-feedback">
+
+				<input type="text" class="form-control" id="search"
+					placeholder="Search..." required="" data-ng-model="searchKey">
+				<span class="glyphicon glyphicon-search form-control-feedback"></span>
+			</div>
+
+		</section>
+	</div>
+
+	<div class="attendee-checkbox"
+		data-ng-class="{'margin-checkbox': $index != 0}"
+		data-ng-repeat="friend in friends | filter: {'first_name' : searchKey}">
+		<div class="checkbox"
+			data-ng-class="{'margin-top3': $index == 0, 'margin-checkbox': $index == 0}">
+			<label> <input type="checkbox"
+				data-ng-model="friend.isSelected"> {{friend.first_name}}
+			</label>
+		</div>
+	</div>
+</div>
+<div class="container">
+
+	<!-- Button Later -->
+
+	<div class="margin-top">
+		<a id="btn-red" name="button red"
+			class="btn btn-primary btn-lg btn-block btn-skylight"
+			data-ng-click="createGroup(group.title)">Create Group</a>
+	</div>
+</div>
+</ion-pane></ion-view>

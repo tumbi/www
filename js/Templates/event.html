@@ -1,0 +1,216 @@
+<ion-view title="{{navTitle}}"> <ion-pane data-ng-controller="createViewEventCtrl"> <!-- Nav tabs -->
+<ul class="nav nav-tabs events fixed-top" id="tab">
+	<li data-ng-class="{'active' : tab == 'details'}"><a
+		data-ng-click="loadEventDetails()">Details</a></li>
+	<li data-ng-class="{'active' : tab == 'attendees'}"><a
+		data-ng-click="loadAttendees()">Attendees</a></li>
+	<li data-ng-class="{'active' : tab == 'location'}"><a
+		data-ng-click="loadGoogleMap()">Location</a></li>
+</ul>
+<div class="bg margin-top80">  
+<!-- Tab panes -->
+<div class="tab-content">
+
+	<div role="main" class="container theme-showcase">
+		<div class="tab-pane" data-ng-show="tab == 'details'">
+			<section>
+				<form role="form" id="details" name="eventForm" class="margin-top">
+                     <!-- Text input--> 
+					<div class="form-group has-feedback">
+						<input type="text" name="title" class="form-control" id="title"
+							placeholder="Title" required="" ng-model="event.title"> <span
+							class="glyphicon form-control-feedback"
+							data-ng-class="{'input-invalid': eventForm.title.$invalid, 'input-valid': !eventForm.title.$invalid}"></span>
+					</div>
+
+					<div class="form-group has-feedback">
+						<textarea class="form-control" rows="4" id="notes" name="notes"
+							placeholder="Notes" ng-model="event.notes"></textarea>
+					</div>
+
+                        <div class="form-group has-feedback"> 
+						    <input type="date" class="form-control" name="date" id="date"
+							    placeholder="Date" ng-model="event.date" placeholder="Date" required><span
+							class="glyphicon form-control-feedback input-date"></span>
+                        </div>
+                        
+                    <div style="clear:both"></div>  
+
+					<div class="form-group form-control-left margin-top">
+						<div class="form-left-spinner has-feedback">
+							<label for="start">Start</label>
+							<div class="input-append spinner" data-trigger="spinner">
+								<input type="time" name="start" data-rule="quantity"
+									id="startTime" required>
+							</div>
+						</div>
+						<div class="form-left-spinner has-feedback">
+							<label for="end">End</label>
+							<div class="input-append spinner" data-trigger="spinner">
+								<input type="time" name="end" data-rule="quantity" id="endTime"
+									required>
+							</div>
+						</div>
+					</div>
+ 		            <div style="clear:both"></div>
+
+					<div class="form-group margin-top2">
+						<div class="fileinput fileinput-new input-group"
+							data-provides="fileinput">
+							<div class="form-control margin-bottom" data-trigger="fileinput">
+								<i class="glyphicon glyphicon-file"
+									data-ng-class="{'fileinput-exists': !event.file}"></i> 
+									<img ng-show="event.file" ng-src="{{event.file}}" height="25"/>
+							</div>
+							<span class="input-group-addon btn btn-default btn-file">
+								<span data-ng-hide="event.file">Upload Image</span> <span
+								data-ng-show="event.file">Change</span> <input type="text"
+								readonly="readonly" data-ng-click="uploadImage()">
+							</span> <a class="input-group-addon btn btn-default"
+								data-ng-show="event.file" data-ng-click="event.file = undefined">Remove</a>
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+		<div class="tab-pane" data-ng-show="tab == 'attendees'" id="attendees"
+			data-ng-controller="createEvent.attendeesCtrl">
+			<div role="main">
+				<section>
+					<ul class="nav nav-tabs">
+						<li class="borderNone c"
+							data-ng-class="{'active': attendeeTab == 'contacts', 'borderNone': attendeeTab != 'contacts'}"><a
+							data-ng-click="attendeeTab = 'contacts'"><span
+								class="contact-icon"></span>Contacts</a></li>
+						<li class="borderNone g"
+							data-ng-class="{'active': attendeeTab == 'groups', 'borderNone': attendeeTab != 'groups'}"><a
+							data-ng-click="attendeeTab = 'groups'"><span
+								class="group-icon"></span>Group</a></li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content internal">
+						<div class="tab-pane"
+							data-ng-class="{'active' : attendeeTab == 'contacts'}"
+							data-ng-show="attendeeTab == 'contacts'" id="contacts">
+							<section>
+								<form role="form" id="contact">
+									<div class="checkbox">
+										<label> <input type="checkbox"
+											data-ng-change="selectAllContacts(contacts, searchAttendees.contact, selectAll.contacts)"
+											data-ng-model="selectAll.contacts"> Select All
+										</label>
+									</div>
+									<div class="form-group has-success has-feedback">
+										<label for="textinput"></label> <input type="text"
+											class="form-control" id="search" placeholder="Search..."
+											data-ng-model="searchAttendees.contact"> <span
+											class="glyphicon glyphicon-search form-control-feedback hasPo"></span>
+									</div>
+									<div class="checkbox"
+										data-ng-class="{'margin-top3': $index == 0, 'margin-top-checkbox': $index != 0}"
+										data-ng-repeat="contact in contacts | filter: {'first_name' : searchAttendees.contact}">
+										<label> <input type="checkbox"
+											data-ng-model="contact.isSelected">
+											{{contact.first_name}}
+										</label>
+									</div>
+								</form>
+							</section>
+						</div>
+						<div class="tab-pane"
+							data-ng-class="{'active' : attendeeTab == 'groups'}"
+							data-ng-show="attendeeTab == 'groups'">
+
+							<div class="group-text">
+
+								<section>
+									<form role="form" id="group">
+										<div class="checkbox">
+											<label> <input type="checkbox"
+												data-ng-change="selectAllGroups(groups, searchAttendees.group, selectAll.groups)"
+												data-ng-model="selectAll.groups"> Select All
+											</label>
+										</div>
+										<div class="form-group has-success has-feedback">
+											<label for="textinput"></label> <input type="text"
+												class="form-control" id="search" placeholder="Search..."
+												data-ng-model="searchAttendees.group"> <span
+												class="glyphicon glyphicon-search form-control-feedback hasPo"></span>
+										</div>
+										<div class="checkbox"
+											data-ng-class="{'margin-top3': $index == 0, 'margin-top-checkbox': $index != 0}"
+											data-ng-repeat="group in groups | filter: {'group_name': searchAttendees.group}">
+											<label> <input type="checkbox"
+												data-ng-model="group.isSelected"> {{group.group_name}}
+											</label>
+										</div>
+									</form>
+
+								</section>
+							</div>
+							<div class="group-btn">
+								<!-- Button login -->
+								<button type="button" id="createGroup"
+									data-ng-click="createGroup()"
+									class="btn btn-default btn-lg btn-block btn-create-group margin-top3">
+									<span class="glyphicon glyphicon-plus-sign"></span> Create
+									Group
+								</button>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="tab-pane" data-ng-show="tab == 'location'">
+			<section>
+				<form>
+					<div class="form-group has-feedback">
+						<label for="textinput"></label> <input type="text"
+							class="form-control" id="enterlocation"
+							placeholder="Enter Location"> <span
+							class="glyphicon glyphicon-search form-control-feedback hasPo"></span>
+					</div>
+
+					<div class="margin-top2" id="map" style="height: 350px;"></div>
+				</form>
+			</section>
+		</div>
+		<a id="upload-photo"
+			class="btn btn-primary btn-lg btn-block btn-skylight margin-top3"
+			data-ng-disabled="eventForm.$invalid"
+			data-ng-click="showReminderModal()">Create Event</a>
+	</div>
+</div>
+</div>
+<!-- Dialog model for remind before -->
+<div modal="showModal" id="reminderModal" tabindex="-1" role="modal" aria-labelledby="reminderModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+        <div class="modal-content modal-attendee">
+            <div class="modal-header modal-head-reminder-bg">
+                <button type="button" class="close close-bg" data-dismiss="modal" data-ng-click="showModal = false">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4>Reminder</h4>
+            </div>
+            <div class="modal-body reminder-text">
+                <p>Remind me about event before</p>
+
+                <form role="form">
+                    <div class="reminderForm">
+			            <select data-ng-model="event.remindBefore" style="margin: auto">
+				            <option data-ng-repeat="value in timeSpans" value="{{value}}">{{value}}</option>
+			            </select> minutes
+		            </div>
+                    <button type="button" id="Button1" class="btn btn-default btn-lg btn-block btn-create-group margin-top" 
+                        data-ng-click="createEvent(event)">
+                      <span class="glyphicon glyphicon-dashboard"></span> Set Reminder
+                    </button>
+                </form>
+	        </div>
+        </div>
+    </div>
+</div>
+</ion-pane> </ion-view>

@@ -1,0 +1,59 @@
+ <!--<ion-view title="About">
+        <ion-content padding="true">
+          <h3>Create hybrid mobile apps with the web technologies you love.</h3>
+          <p>Free and open source, Ionic offers a library of mobile-optimized HTML, CSS and JS components for building highly interactive apps.</p>
+          <p>Built with Sass and optimized for AngularJS.</p>
+          <p>
+            <a class="button icon icon-right ion-chevron-right" href="#/tab/navstack">Tabs Nav Stack</a>
+          </p>
+        </ion-content>
+      </ion-view>-->
+
+ <ion-view title="My Calendar">
+    <ion-content padding="true">
+	        <div class="button-bar">
+	            <a class="button" ng-class="{'button-positive': isActive('agendaDay')}" ng-click="setActive('agendaDay')">Day</a>
+	            <a class="button" ng-class="{'button-positive': isActive('agendaWeek')}" ng-click="setActive('agendaWeek')">Week</a>
+	            <a class="button" ng-class="{'button-positive': isActive('month')}" ng-click="setActive('month')">Month</a>
+	        </div>
+    	
+	   
+		  	<button class="button button-block button-positive" ng-click="addEvent()">
+		  		Add Event
+		    </button>
+		    <div class="row responsive-sm">
+			  <!--<div class="col col-45">
+				  <label class="item item-input">
+				    <i class="icon ion-search placeholder-icon"></i>
+				    <input type="text" placeholder="Search">
+				  </label>
+			  </div>
+			  <div class="col col-45">
+				  <label class="item item-input">
+				    <i class="icon ion-search placeholder-icon"></i>
+				    <input type="text" placeholder="Search">
+				  </label>
+			  </div>
+			  <div class="col col-10">
+			  		<button class="button  icon ion-calendar"></button>
+			  </div>-->
+			  <div class="col">
+				  <label class="item item-input">
+				    <i class="icon ion-search placeholder-icon"></i>
+				    <input type="text" placeholder="Search" id="titleSearch" ng-model="search.title" ng-change="filter(search);">
+				  </label>
+			  </div>
+			  <div class="col">
+				  <label class="item item-input">
+				    <i class="icon ion-search placeholder-icon"></i>
+				    <input type="text" placeholder="Search" ng-model="search.date" calendar-picker ng-change="filter(search);">
+				  </label>
+			  </div>
+		    </div>
+		    <!--<script src="js/FullCalendarJS/fullcalendar/fullcalendar.min.js"></script>--> 
+ 	 	 <div class="calendar" id="calendar" calendar ng-model="events"> </div>
+ 	 	 <!--<div id="test"/>-->
+	    
+          
+    </ion-content>
+  </ion-view>

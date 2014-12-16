@@ -1,0 +1,32 @@
+.spinner .add-on {
+	padding:2px
+}
+.spinner .add-on a.spin-up, .spinner .add-on a.spin-down {
+	height:10px;
+	overflow:hidden;
+	display:block;
+	text-align:center;
+	position:relative;
+	color:#999
+}
+.spinner .add-on a.spin-up .icon-sort-down, .spinner .add-on a.spin-down .icon-sort-down {
+	position:relative;
+	top:-9px
+}
+.spinner .add-on a.spin-up:hover, .spinner .add-on a.spin-down:hover {
+	color:#555
+}
+.spinner input {
+	background-color: #fff;
+    background-image: none;
+    border: 1px solid #474747;
+    border-radius: 0;
+    color: #7e7e7e;   
+    font-size: 14px;
+    height: 45px;
+    line-height: 1.42857;
+    padding: 6px 12px;
+    width: 75%;
+    text-align: left;
+}
+

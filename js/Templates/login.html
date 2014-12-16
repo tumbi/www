@@ -1,0 +1,57 @@
+<!-- 
+  This template gets placed in the Pet tab's <ion-nav-view> directive.
+  It was wired up in the app config (app.js) 
+  The 'pets' data comes from its $scope within PetIndexCtrl (controller.js)
+-->
+<ion-view title="{{navTitle}}"> <ion-pane>
+<div role="main" class="container theme-showcase bg">
+	<header>
+  <div class="logoP">
+   <img src="images/logo.png" alt="AppToDate" />
+  </div>
+ </header>
+	<section>
+		<form role="form" class="margin-top130" name="login">
+
+			<!-- Text input-->
+			<div class="form-group has-feedback">
+				<input type="email" class="form-control" name="email" id="email"
+					placeholder="Email" required="" ng-model="user.username"> <span
+					class="glyphicon form-control-feedback"
+					data-ng-class="{'input-invalid': login.email.$invalid, 'input-valid': !login.email.$invalid}"></span>
+			</div>
+
+			<!-- Password input-->
+			<div class="form-group has-feedback">
+				<input type="password" name="password" class="form-control"
+					id="password" placeholder="Password" required=""
+					ng-model="user.password"> <span
+					class="glyphicon form-control-feedback"
+					data-ng-class="{'input-invalid': login.password.$invalid, 'input-valid': !login.password.$invalid}"></span>
+			</div>
+			<!-- Button login -->
+			<button type="submit"
+				class="btn btn-primary btn-lg btn-block btn-green margin-top3" data-ng-disabled="login.$invalid"  ng-click="signIn(user)">Login</button>
+
+			<!-- Button facebook -->
+			<div class="btn-group btn-facebook margin-top6">
+				<span class="btn btn-default btn-facebook-left btn-blue"><img
+					class="face-icon" src="images/f-icon.png" alt="" /></span> <a
+					id="facebook" class="btn btn-default btn-facebook-right btn-blue"
+					ng-click="facebookLogin()">Sign in with Facebook</a>
+			</div>
+
+			<!-- divider -->
+			<hr class="margin-top70" />
+			<div class="center-block margin-bottom">
+				<h2>Don't have an account?</h2>
+				<h4>It takes a second to Sign up</h4>
+			</div>
+			<!-- Button Register -->
+			<a href="#/register" id="register" name="register"
+				class="btn btn-primary btn-lg btn-block btn-skyblue margin-top">Register</a>
+
+		</form>
+	</section>
+</div>
+</ion-pane> </ion-view>
